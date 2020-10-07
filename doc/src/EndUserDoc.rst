@@ -55,7 +55,6 @@ The following requirements must be met for a smooth operation of the module.
 
 The following |mage2| versions are supported:
 
-- Community Edition 2.1.4+
 - Community Edition 2.2.4+
 - Community Edition 2.3.0+
 
@@ -64,12 +63,12 @@ PHP
 
 These PHP versions are supported:
 
-- PHP 5.6.5+
 - PHP 7.0.2
 - PHP 7.0.4
 - PHP 7.0.6+
 - PHP 7.1.0+
 - PHP 7.2.0+
+- PHP 7.3.0+
 
 To connect to the API (webservice), the PHP SOAP extension must be installed
 and enabled on the web server.
@@ -104,7 +103,9 @@ The DHL webservices (APIs) only support the following origin countries:
 **DHL Business Customer Shipping (Geschäftskundenversand) API**
 
 * Germany
-* Austria
+
+.. CAUTION::
+   Austria(AT) is no longer supported
 
 **eCommerce Global Label API**
 
@@ -210,7 +211,7 @@ General Settings
 The dropdown in the configuration section *General Settings* shows which
 API connection is being configured.
 
-* DHL Business Customer Shipping (DE, AT), or
+* DHL Business Customer Shipping (DE), or
 * DHL eCommerce Global Label API
 
 This field is pre-selected according to the current `Shipping origin`_. Depending on the
@@ -698,8 +699,6 @@ Use the option *Retoure slip* when requesting a label in the packaging popup.
 To book this service, make sure the `participation numbers`__ for returns are properly configured:
 
 - Retoure DHL Paket (DE → DE)
-- Retoure DHL Paket Austria (AT → AT)
-- Retoure DHL Paket Connect (AT → DE)
 
 __ `Account Data`_
 

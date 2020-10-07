@@ -51,7 +51,6 @@ Die nachfolgenden Voraussetzungen müssen für den reibungslosen Betrieb des Mod
 
 Folgende |mage2|-Versionen werden vom aktuellen Modul unterstützt:
 
-- Community Edition 2.1.4+
 - Community Edition 2.2.4+
 - Community Edition 2.3.0+
 
@@ -60,12 +59,12 @@ PHP
 
 Folgende PHP-Versionen werden vom aktuellen Modul unterstützt:
 
-- PHP 5.6.5+
 - PHP 7.0.2
 - PHP 7.0.4
 - PHP 7.0.6+
 - PHP 7.1.0+
 - PHP 7.2.0+
+- PHP 7.3.0+
 
 Für die Anbindung des DHL Webservice muss die PHP SOAP Erweiterung auf dem
 Webserver installiert und aktiviert sein.
@@ -99,7 +98,9 @@ Die DHL Schnittstellen (APIs) unterstützen ausschließlich folgende Absenderlä
 **DHL Geschäftskundenversand API (Business Customer Shipping)**
 
 * Deutschland
-* Österreich
+
+.. ACHTUNG::
+   Versand aus Österreich (AT) wird nicht länger unterstützt.
 
 **eCommerce Global Label API**
 
@@ -212,7 +213,7 @@ Allgemeine Einstellungen
 Im Konfigurationsbereich *Allgemeine Einstellungen* wird angezeigt, welche der
 zur Verfügung stehenden API-Anbindungen konfiguriert wird.
 
-* DHL Business Customer Shipping (DE, AT), oder
+* DHL Business Customer Shipping (DE), oder
 * DHL eCommerce Global Label API
 
 Dieses Feld ist bereits gemäß dem eingestellten `Versandursprung`_ vorbelegt. Je nach
@@ -715,8 +716,6 @@ Nutzen Sie dafür beim Erstellen des Labels im Popup das Auswahlfeld *Retouren-B
 Stellen Sie sicher, dass die `Teilnahmenummern`__ für Retouren korrekt konfiguriert sind:
 
 - Retoure DHL Paket (DE → DE)
-- Retoure DHL Paket Austria (AT → AT)
-- Retoure DHL Paket Connect (AT → DE)
 
 __ `Stammdaten`_
 

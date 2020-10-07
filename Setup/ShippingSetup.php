@@ -33,6 +33,7 @@ use Magento\Eav\Setup\EavSetup;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Storage\WriterInterface;
 use Magento\Framework\DB\Ddl\Table;
+use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 
 /**
@@ -133,8 +134,9 @@ class ShippingSetup
      * @link http://devdocs.magento.com/guides/v2.2/ext-best-practices/tutorials/serialized-to-json-data-upgrade.html
      * @param ScopeConfigInterface $scopeConfig
      * @param WriterInterface $configWriter
+     * @param SerializerInterface $serializer
      */
-    public static function convertSerializedToJson($scopeConfig, $configWriter)
+    public static function convertSerializedToJson($scopeConfig, $configWriter, $serializer)
     {
         // read value from the legacy config path
         $legacyValue = $scopeConfig->getValue(BcsConfigInterface::CONFIG_XML_PATH_ACCOUNT_PARTICIPATION);
@@ -143,12 +145,11 @@ class ShippingSetup
         if (!empty($legacyValue)) {
             $configWriter->save(
                 BcsConfigInterface::CONFIG_XML_PATH_ACCOUNT_PARTICIPATIONS,
-                json_encode(unserialize($legacyValue))
+                json_encode($serializer->unserialize($legacyValue))
             );
             $configWriter->delete(BcsConfigInterface::CONFIG_XML_PATH_ACCOUNT_PARTICIPATION);
         }
     }
-
 
     /**
      * Create tables
@@ -238,19 +239,6 @@ class ShippingSetup
         $setup->startSetup();
         $setup->getConnection()
             ->addColumn(
-                $setup->getTable(self::QUOTE_TABLE_NAME),
-                self::SERVICE_CHARGE_FIELD_NAME,
-                [
-                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
-                    'nullable' => true,
-                    'length' => '12,4',
-                    'default' => '0.0000',
-                    'comment' => 'DHL Service Charge'
-                ]
-            );
-
-        $setup->getConnection()
-            ->addColumn(
                 $setup->getTable(self::QUOTE_ADDRESS_TABLE_NAME),
                 self::SERVICE_CHARGE_FIELD_NAME,
                 [
@@ -274,6 +262,19 @@ class ShippingSetup
                     'comment' => 'DHL Base Service Charge'
                 ]
             );
+
+        $setup->getConnection()
+              ->addColumn(
+                  $setup->getTable(self::QUOTE_TABLE_NAME),
+                  self::SERVICE_CHARGE_FIELD_NAME,
+                  [
+                      'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
+                      'nullable' => true,
+                      'length' => '12,4',
+                      'default' => '0.0000',
+                      'comment' => 'DHL Service Charge'
+                  ]
+              );
 
         $setup->getConnection()
             ->addColumn(
